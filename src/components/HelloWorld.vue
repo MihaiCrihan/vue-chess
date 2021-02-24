@@ -12,21 +12,194 @@ export default {
       [1, 0, 1, 0, 1, 0, 1, 0],
       [0, 1, 0, 1, 0, 1, 0, 1]
     ],
-    ch_black: [
-      ["0.0", "2.0", "4.0", "6.0"],
-      ["1.1", "3.1", "5.1", "7.1"],
-      ["0.2", "2.2", "4.2", "6.2"],
+    chestPositions: [
+      {
+        id: 'b1',
+        positionX : 1,
+        positionY : 0,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b2',
+        positionX : 3,
+        positionY : 0,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b3',
+        positionX : 5,
+        positionY : 0,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b4',
+        positionX : 7,
+        positionY : 0,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b5',
+        positionX : 0,
+        positionY : 1,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b6',
+        positionX : 2,
+        positionY : 1,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b7',
+        positionX : 4,
+        positionY : 1,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b8',
+        positionX : 6,
+        positionY : 1,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b9',
+        positionX : 1,
+        positionY : 2,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b10',
+        positionX : 3,
+        positionY : 2,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b11',
+        positionX : 5,
+        positionY : 2,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'b12',
+        positionX : 7,
+        positionY : 2,
+        isBlack: true,
+        isQueen: false
+      },
+      {
+        id: 'a1',
+        positionX : 0,
+        positionY : 5,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a2',
+        positionX : 2,
+        positionY : 5,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a3',
+        positionX : 4,
+        positionY : 5,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a4',
+        positionX : 6,
+        positionY : 5,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a5',
+        positionX : 1,
+        positionY : 6,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a6',
+        positionX : 3,
+        positionY : 6,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a7',
+        positionX : 5,
+        positionY : 6,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a8',
+        positionX : 7,
+        positionY : 6,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a9',
+        positionX : 0,
+        positionY : 7,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a10',
+        positionX : 2,
+        positionY : 7,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a11',
+        positionX : 4,
+        positionY : 7,
+        isBlack: false,
+        isQueen: false
+      },
+      {
+        id: 'a12',
+        positionX : 6,
+        positionY : 7,
+        isBlack: false,
+        isQueen: false
+      }
     ],
-
-// координаты черных шашек
-  ch_white: [
-      "0.5", "2.5", "4.5", "6.5",
-      "1.6", "3.6", "5.6", "7.6",
-      "0.7", "2.7", "4.7", "6.7",
-    ]
+    newPositionX: 0,
+    newPositionY: 0,
+    keepChessId:''
   }),
   methods: {
+    getChessCoordinate (positionX, positionY, id) {
+      console.log(positionX, positionY, id)
+      if (id === this.chestPositions.id){
+        console.log('---------')
+      }
+      this.keepChessId = id;
+      this.newPositionX = positionX;
+      this.newPositionY = positionY;
+    },
     getCoordinate (rowIndex, columnIndex) {
+        this.chestPositions.positionX = this.newPositionX
+        this.chestPositions.positionY = this.newPositionY
+        console.log(this.chestPositions.positionX, this.chestPositions.positionY)
       console.log(rowIndex, columnIndex)
     }
   },
@@ -40,9 +213,10 @@ export default {
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="desk">
-      <div :key="posBlackIndex" v-for="(pos, posBlackIndex) in ch_black">
-        <img :key="posWhiteIndex" v-for="(col, posWhiteIndex) in pos"  class="chest" src="../assets/black.png" alt="black" style="position: absolute;"
-             :style="{ left: (col * 160) + 'px', top: (pos * 2) + 'px' }  ">
+      <div v-for="chess in chestPositions" :key="chess.id" >
+        <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id)" class="chest" alt="chess" style="position: absolute;"
+             :style="{ left: (chess.positionX * 80) + 'px', top: (chess.positionY * 80) + 'px' }"
+             :src="chess.isBlack ? require('../assets/black.png') : require('../assets/white.png')">
       </div>
       <div v-for="(row, rowIndex) in matrix" :key="rowIndex">
         <div v-for="(column, columnIndex) in row" :key="columnIndex">
@@ -52,21 +226,14 @@ export default {
         </div>
         <br>
       </div>
-      <img class="chest" src="../assets/white.png" alt="black" style="position: absolute; bottom: 0"
-           :style="{ left: (2 * 80) + 'px' }">
     </div>
   </div>
 </template>
-<!--          {{ rowIndex }},{{columnIndex}},<b>{{column}}</b>-->
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!--      <div v-for="(item, index) in 8" :key="index">-->
-<!--        <div v-for="(column, index) in 8" :key="index" :class="((column + item) % 2 === 0) ? 'white-cell' : 'black-cell'">-->
-<!--          {{ item }} ; {{ column }}-->
-<!--        </div>-->
-<!--      </div>-->
 <style>
   body {
     background: gray;
+  }
+  #app {
   }
 </style>
 <style scoped>
@@ -82,20 +249,24 @@ export default {
   }
   .chest {
     width: 80px;
-    height: 80px
+    height: 80px;
   }
 
   .white-cell {
-    height: 80px;
     width: 80px;
+    height: 80px;
     color: black;
     background-color: #ffffff;
   }
 
   .black-cell {
-    height: 80px;
+    color: white;
     width: 80px;
+    height: 80px;
     background-color: #000000
+  }
+  .hello {
+    max-width: 100%;
   }
 
 </style>
