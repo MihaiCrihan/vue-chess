@@ -15,192 +15,191 @@ export default {
     chestPositions: [
       {
         id: 'b1',
-        positionX : 1,
-        positionY : 0,
+        positionX: 1,
+        positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b2',
-        positionX : 3,
-        positionY : 0,
+        positionX: 3,
+        positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b3',
-        positionX : 5,
-        positionY : 0,
+        positionX: 5,
+        positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b4',
-        positionX : 7,
-        positionY : 0,
+        positionX: 7,
+        positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b5',
-        positionX : 0,
-        positionY : 1,
+        positionX: 0,
+        positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b6',
-        positionX : 2,
-        positionY : 1,
+        positionX: 2,
+        positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b7',
-        positionX : 4,
-        positionY : 1,
+        positionX: 4,
+        positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b8',
-        positionX : 6,
-        positionY : 1,
+        positionX: 6,
+        positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b9',
-        positionX : 1,
-        positionY : 2,
+        positionX: 1,
+        positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b10',
-        positionX : 3,
-        positionY : 2,
+        positionX: 3,
+        positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b11',
-        positionX : 5,
-        positionY : 2,
+        positionX: 5,
+        positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'b12',
-        positionX : 7,
-        positionY : 2,
+        positionX: 7,
+        positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
         id: 'a1',
-        positionX : 0,
-        positionY : 5,
+        positionX: 0,
+        positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a2',
-        positionX : 2,
-        positionY : 5,
+        positionX: 2,
+        positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a3',
-        positionX : 4,
-        positionY : 5,
+        positionX: 4,
+        positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a4',
-        positionX : 6,
-        positionY : 5,
+        positionX: 6,
+        positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a5',
-        positionX : 1,
-        positionY : 6,
+        positionX: 1,
+        positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a6',
-        positionX : 3,
-        positionY : 6,
+        positionX: 3,
+        positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a7',
-        positionX : 5,
-        positionY : 6,
+        positionX: 5,
+        positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a8',
-        positionX : 7,
-        positionY : 6,
+        positionX: 7,
+        positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a9',
-        positionX : 0,
-        positionY : 7,
+        positionX: 0,
+        positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a10',
-        positionX : 2,
-        positionY : 7,
+        positionX: 2,
+        positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a11',
-        positionX : 4,
-        positionY : 7,
+        positionX: 4,
+        positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
         id: 'a12',
-        positionX : 6,
-        positionY : 7,
+        positionX: 6,
+        positionY: 7,
         isBlack: false,
         isQueen: false
       }
     ],
     newPositionX: 0,
     newPositionY: 0,
-    keepChessId:''
+    keepChessId: ''
   }),
   methods: {
-    getChessCoordinate (positionX, positionY, id) {
+    getChessCoordinate(positionX, positionY, id) {
       console.log(positionX, positionY, id)
-      if (id === this.chestPositions.id){
+      if (id === this.chestPositions.id) {
         console.log('---------')
       }
       this.keepChessId = id;
       this.newPositionX = positionX;
       this.newPositionY = positionY;
     },
-    getCoordinate (rowIndex, columnIndex) {
-        this.chestPositions.positionX = this.newPositionX
-        this.chestPositions.positionY = this.newPositionY
-        console.log(this.chestPositions.positionX, this.chestPositions.positionY)
-      console.log(rowIndex, columnIndex)
+    getCoordinate(rowIndex, columnIndex) {
+      const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
+      this.chestPositions[chessIndex].positionX = rowIndex
+      this.chestPositions[chessIndex].positionY = columnIndex
     }
   },
   props: {
@@ -213,15 +212,16 @@ export default {
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="desk">
-      <div v-for="chess in chestPositions" :key="chess.id" >
-        <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id)" class="chest" alt="chess" style="position: absolute;"
+      <div v-for="chess in chestPositions" :key="chess.id">
+        <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id)" class="chest" alt="chess"
+             style="position: absolute;"
              :style="{ left: (chess.positionX * 80) + 'px', top: (chess.positionY * 80) + 'px' }"
              :src="chess.isBlack ? require('../assets/black.png') : require('../assets/white.png')">
       </div>
       <div v-for="(row, rowIndex) in matrix" :key="rowIndex">
         <div v-for="(column, columnIndex) in row" :key="columnIndex">
           <div @click="getCoordinate(rowIndex,columnIndex)" :class=" column === 1 ? 'white-cell' : 'black-cell'">
-            {{ rowIndex }},{{columnIndex}}
+            {{ rowIndex }},{{ columnIndex }}
           </div>
         </div>
         <br>
@@ -230,43 +230,46 @@ export default {
   </div>
 </template>
 <style>
-  body {
-    background: gray;
-  }
-  #app {
-  }
+body {
+  background: gray;
+}
+
+#app {
+}
 </style>
 <style scoped>
-  .desk {
-    min-width: 640px;
-    max-width: 640px;
-    min-height: 640px;
-    max-height: 640px;
-    display: flex;
-    color: white;
-    position: relative;
-    font-weight: bold;
-  }
-  .chest {
-    width: 80px;
-    height: 80px;
-  }
+.desk {
+  min-width: 640px;
+  max-width: 640px;
+  min-height: 640px;
+  max-height: 640px;
+  display: flex;
+  color: white;
+  position: relative;
+  font-weight: bold;
+}
 
-  .white-cell {
-    width: 80px;
-    height: 80px;
-    color: black;
-    background-color: #ffffff;
-  }
+.chest {
+  width: 80px;
+  height: 80px;
+}
 
-  .black-cell {
-    color: white;
-    width: 80px;
-    height: 80px;
-    background-color: #000000
-  }
-  .hello {
-    max-width: 100%;
-  }
+.white-cell {
+  width: 80px;
+  height: 80px;
+  color: black;
+  background-color: #ffffff;
+}
+
+.black-cell {
+  color: white;
+  width: 80px;
+  height: 80px;
+  background-color: #000000
+}
+
+.hello {
+  max-width: 100%;
+}
 
 </style>
