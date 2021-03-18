@@ -186,6 +186,43 @@ export default {
     newPositionY: 0,
     keepChessId: ''
   }),
+  mounted() {
+    // let posx = 1;
+    // let val = 0;
+    // let initx = 1;
+    // for (let i = 1; i <= 7; i++) {
+    //   if ((i % 2) === 0 ) {
+    //     // val = 1;
+    //     // this.chestPositions.push({
+    //     //   positionX: 1,
+    //     //
+    //     // },)
+    //   } else {
+    //     console.log(i + "-------------")
+    //   }
+    // }
+    // for (let white = 1; white <= 12; white++) {
+    //   let posy = (white > 8 && white <= 12 ) ? 2 : (white <= 4)? 0 : (white > 4 && white <= 8 )? 1 : '';
+    //   this.chestPositions.push({
+    //     id: `white${white}`,
+    //     positionX: 1,
+    //     positionY: `${posy}`,
+    //     isBlack: false,
+    //     isQueen: false
+    //   },)
+    // }
+    // for (let black = 1; black <= 12; black++) {
+    //   let posy = (black > 8 && black <= 12 ) ? 7 : (black <= 4)? 5 : (black > 4 && black <= 8 )? 6 : '';
+    //   this.chestPositions.push({
+    //     id: `black${black}`,
+    //     positionX: 6,
+    //     positionY: `${posy}`,
+    //     isBlack: true,
+    //     isQueen: false
+    //   },)
+    // }
+    // document.getElementById("json").textContent = document.body.innerHTML = JSON.stringify(this.chestPositions);
+  },
   methods: {
     getChessCoordinate(positionX, positionY, id) {
       console.log(positionX, positionY, id)
@@ -197,9 +234,16 @@ export default {
       this.newPositionY = positionY;
     },
     getCoordinate(rowIndex, columnIndex) {
+      console.log('--------------------')
+      console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
-      this.chestPositions[chessIndex].positionX = rowIndex
-      this.chestPositions[chessIndex].positionY = columnIndex
+      console.log(this.chestPositions[chessIndex].positionX)
+      console.log(this.chestPositions[chessIndex].positionY)
+      if ((((this.chestPositions[chessIndex].positionX + 1) == rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) == columnIndex)) || (((this.chestPositions[chessIndex].positionX - 1) == rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) == columnIndex) )){
+        this.chestPositions[chessIndex].positionX = rowIndex
+        this.chestPositions[chessIndex].positionY = columnIndex
+      }
+
     }
   },
   props: {
@@ -210,6 +254,7 @@ export default {
 
 <template>
   <div class="hello">
+  <pre id="json"></pre>
     <h1>{{ msg }}</h1>
     <div class="desk">
       <div v-for="chess in chestPositions" :key="chess.id">
@@ -239,6 +284,7 @@ body {
 </style>
 <style scoped>
 .desk {
+  margin: 0 auto;
   min-width: 640px;
   max-width: 640px;
   min-height: 640px;
