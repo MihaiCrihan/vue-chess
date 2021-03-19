@@ -224,6 +224,25 @@ export default {
     // document.getElementById("json").textContent = document.body.innerHTML = JSON.stringify(this.chestPositions);
   },
   methods: {
+    restartPage() {
+      location.reload();
+    },
+    getIfGoTopLeft(chessIndex, rowIndex, columnIndex) {
+      if (((this.chestPositions[chessIndex].positionX - 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) === columnIndex)) {
+        return true;
+      }
+    },
+    getIfGoTopRight(chessIndex, rowIndex, columnIndex) {
+      if (((this.chestPositions[chessIndex].positionX + 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) === columnIndex)) {
+        return true;
+      }
+    },
+    getIfGoBottomLeft() {
+
+    },
+    getIfGoBottomRight() {
+
+    },
     getChessCoordinate(positionX, positionY, id) {
       console.log(positionX, positionY, id)
       if (id === this.chestPositions.id) {
@@ -234,12 +253,9 @@ export default {
       this.newPositionY = positionY;
     },
     getCoordinate(rowIndex, columnIndex) {
-      console.log('--------------------')
       console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
-      console.log(this.chestPositions[chessIndex].positionX)
-      console.log(this.chestPositions[chessIndex].positionY)
-      if ((((this.chestPositions[chessIndex].positionX + 1) == rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) == columnIndex)) || (((this.chestPositions[chessIndex].positionX - 1) == rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) == columnIndex) )){
+      if (this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) || this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex)) {
         this.chestPositions[chessIndex].positionX = rowIndex
         this.chestPositions[chessIndex].positionY = columnIndex
       }
@@ -254,7 +270,7 @@ export default {
 
 <template>
   <div class="hello">
-  <pre id="json"></pre>
+    <pre id="json"></pre>
     <h1>{{ msg }}</h1>
     <div class="desk">
       <div v-for="chess in chestPositions" :key="chess.id">
@@ -272,6 +288,7 @@ export default {
         <br>
       </div>
     </div>
+    <button @click="restartPage" class="reload-button">Reload Page</button>
   </div>
 </template>
 <style>
@@ -293,6 +310,14 @@ body {
   color: white;
   position: relative;
   font-weight: bold;
+}
+
+.reload-button {
+  padding: 10px 32px;
+  margin-top: 42px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-weight: bold
 }
 
 .chest {
