@@ -184,9 +184,31 @@ export default {
     ],
     newPositionX: 0,
     newPositionY: 0,
+    count: 0,
     keepChessId: ''
   }),
   mounted() {
+    //  for (let i = 1; i <= 8; i++) {
+    //     for (let j = 1; j <= 4; j++) {
+    //       this.chestPositions.push({
+    //       id: `white${i}`,
+    //       positionY: 1,
+    //       isBlack: false,
+    //       isQueen: false
+    //   },)
+    //   if(i % 2 === 0) {
+    //     this.chestPositions.push({
+    //       positionX: 1,
+    //       isBlack: true,
+    //       },)
+    //   }
+    //  }
+    //  }
+
+
+        // for(column, columnIndex) in row" :key="columnIndex">
+        //   :class=" column === 1 ? 'white-cell' : 'black-cell'">
+          
     // let posx = 1;
     // let val = 0;
     // let initx = 1;
@@ -237,17 +259,22 @@ export default {
         return true;
       }
     },
-    getIfGoBottomLeft() {
-
+    getIfGoBottomLeft(chessIndex, rowIndex, columnIndex) {
+      if (((this.chestPositions[chessIndex].positionX - 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY + 1) === columnIndex)) {
+        return true;
+      }
     },
-    getIfGoBottomRight() {
-
+    getIfGoBottomRight(chessIndex, rowIndex, columnIndex) {
+      if (((this.chestPositions[chessIndex].positionX + 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY + 1) === columnIndex)) {
+        return true;
+      }
     },
     getChessCoordinate(positionX, positionY, id) {
-      console.log(positionX, positionY, id)
-      if (id === this.chestPositions.id) {
-        console.log('---------')
-      }
+      console.log(positionX, positionY, id, this.count)
+     if(this.count % 2 === 0 && this.count != 0) {
+       console.log("kill");
+     }
+      this.count = this.count+1
       this.keepChessId = id;
       this.newPositionX = positionX;
       this.newPositionY = positionY;
@@ -255,12 +282,22 @@ export default {
     getCoordinate(rowIndex, columnIndex) {
       console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
-      if (this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) || this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex)) {
+      if (
+        this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) && (this.count % 2 === 0 && this.count != 0) || 
+        this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0) || 
+        this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0) || 
+        this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0)) 
+        {
+        // if()
         this.chestPositions[chessIndex].positionX = rowIndex
         this.chestPositions[chessIndex].positionY = columnIndex
       }
 
     }
+    // killChess () {
+    //   this.chestPositions[chessIndex].positionX = 7
+    //   this.chestPositions[chessIndex].positionY = 9  
+    // }
   },
   props: {
     msg: String
