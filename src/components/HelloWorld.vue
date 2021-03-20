@@ -271,9 +271,9 @@ export default {
     },
     getChessCoordinate(positionX, positionY, id) {
       console.log(positionX, positionY, id, this.count)
-     if(this.count % 2 === 0 && this.count != 0) {
-       console.log("kill");
-     }
+     // if(this.count % 2 === 0 && this.count !== 0) {
+     //   console.log("kill");
+     // }
       this.count = this.count+1
       this.keepChessId = id;
       this.newPositionX = positionX;
@@ -282,11 +282,12 @@ export default {
     getCoordinate(rowIndex, columnIndex) {
       console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
+          // && (this.count % 2 === 0 && this.count !== 0)
       if (
-        this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) && (this.count % 2 === 0 && this.count != 0) || 
-        this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0) || 
-        this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0) || 
-        this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex)  && (this.count % 2 === 0 && this.count != 0)) 
+        this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) ||
+        this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex) ||
+        this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex) ||
+        this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex))
         {
         // if()
         this.chestPositions[chessIndex].positionX = rowIndex
