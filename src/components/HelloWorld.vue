@@ -14,168 +14,168 @@ export default {
     ],
     chestPositions: [
       {
-        id: 'b1',
+        id: 'black-1',
         positionX: 1,
         positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b2',
+        id: 'black-2',
         positionX: 3,
         positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b3',
+        id: 'black-3',
         positionX: 5,
         positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b4',
+        id: 'black-4',
         positionX: 7,
         positionY: 0,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b5',
+        id: 'black-5',
         positionX: 0,
         positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b6',
+        id: 'black-6',
         positionX: 2,
         positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b7',
+        id: 'black-7',
         positionX: 4,
         positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b8',
+        id: 'black-8',
         positionX: 6,
         positionY: 1,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b9',
+        id: 'black-9',
         positionX: 1,
         positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b10',
+        id: 'black-10',
         positionX: 3,
         positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b11',
+        id: 'black-11',
         positionX: 5,
         positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'b12',
+        id: 'black-12',
         positionX: 7,
         positionY: 2,
         isBlack: true,
         isQueen: false
       },
       {
-        id: 'a1',
+        id: 'white-1',
         positionX: 0,
         positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a2',
+        id: 'white-2',
         positionX: 2,
         positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a3',
+        id: 'white-3',
         positionX: 4,
         positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a4',
+        id: 'white-4',
         positionX: 6,
         positionY: 5,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a5',
+        id: 'white-5',
         positionX: 1,
         positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a6',
+        id: 'white-6',
         positionX: 3,
         positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a7',
+        id: 'white-7',
         positionX: 5,
         positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a8',
+        id: 'white-8',
         positionX: 7,
         positionY: 6,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a9',
+        id: 'white-9',
         positionX: 0,
         positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a10',
+        id: 'white-10',
         positionX: 2,
         positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a11',
+        id: 'white-11',
         positionX: 4,
         positionY: 7,
         isBlack: false,
         isQueen: false
       },
       {
-        id: 'a12',
+        id: 'white-12',
         positionX: 6,
         positionY: 7,
         isBlack: false,
@@ -270,11 +270,16 @@ export default {
       }
     },
     getChessCoordinate(positionX, positionY, id) {
-      console.log(positionX, positionY, id, this.count)
+      console.log(positionX, positionY, id.split('-').slice(0, 1).toString(), id.split('-').slice(1).toString(), this.count)
      // if(this.count % 2 === 0 && this.count !== 0) {
      //   console.log("kill");
      // }
-      this.count = this.count+1
+      document.addEventListener('click', () => {
+        this.count = this.count+1
+        if(id.split('-').slice(0, 1).toString() === "white") {
+          console.log("white")
+        }
+      }, false);
       this.keepChessId = id;
       this.newPositionX = positionX;
       this.newPositionY = positionY;
@@ -282,23 +287,16 @@ export default {
     getCoordinate(rowIndex, columnIndex) {
       console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
-          // && (this.count % 2 === 0 && this.count !== 0)
       if (
         this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) ||
         this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex) ||
         this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex) ||
         this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex))
         {
-        // if()
         this.chestPositions[chessIndex].positionX = rowIndex
         this.chestPositions[chessIndex].positionY = columnIndex
       }
-
     }
-    // killChess () {
-    //   this.chestPositions[chessIndex].positionX = 7
-    //   this.chestPositions[chessIndex].positionY = 9  
-    // }
   },
   props: {
     msg: String
