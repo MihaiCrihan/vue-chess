@@ -181,12 +181,12 @@ export default {
         isBlack: false,
         isQueen: false
       }
-    ],
+    ],//TODO de generat dinamic pozitiile la dame
     newPositionX: 0,
     newPositionY: 0,
     count: 0,
     keepChessId: '',
-    isThisBlack: '',
+    // isThisBlack: '',
     whiteTurn: true
   }),
   mounted() {
@@ -277,8 +277,6 @@ export default {
       console.log(isBlack)
       document.addEventListener('click', () => {
         this.count = this.count + 1
-        // if(this.isBlack) {
-        // }
       }, false);
       this.keepChessId = id;
       this.isThisBlack = isBlack; //culoarea damei
