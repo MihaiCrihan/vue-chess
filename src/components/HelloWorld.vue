@@ -185,7 +185,9 @@ export default {
     newPositionX: 0,
     newPositionY: 0,
     count: 0,
-    keepChessId: ''
+    keepChessId: '',
+    isThisBlack: '',
+    whiteTurn: true
   }),
   mounted() {
     //  for (let i = 1; i <= 8; i++) {
@@ -269,18 +271,17 @@ export default {
         return true;
       }
     },
-    getChessCoordinate(positionX, positionY, id) {
-      console.log(positionX, positionY, id.split('-').slice(0, 1).toString(), id.split('-').slice(1).toString(), this.count)
-     // if(this.count % 2 === 0 && this.count !== 0) {
-     //   console.log("kill");
-     // }
+
+    getChessCoordinate(positionX, positionY, id, isBlack) {
+      // console.log(positionX, positionY, id.split('-').slice(0, 1).toString(), id.split('-').slice(1).toString(), this.count)
+      console.log(isBlack)
       document.addEventListener('click', () => {
-        this.count = this.count+1
-        if(id.split('-').slice(0, 1).toString() === "white") {
-          console.log("white")
-        }
+        this.count = this.count + 1
+        // if(this.isBlack) {
+        // }
       }, false);
       this.keepChessId = id;
+      this.isThisBlack = isBlack; //culoarea damei
       this.newPositionX = positionX;
       this.newPositionY = positionY;
     },
@@ -288,13 +289,27 @@ export default {
       console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
       if (
-        this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) ||
-        this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex) ||
-        this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex) ||
-        this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex))
-        {
-        this.chestPositions[chessIndex].positionX = rowIndex
+        !this.isThisBlack && this.whiteTurn &&
+          (
+            this.getIfGoTopRight(chessIndex, rowIndex, columnIndex) ||
+            this.getIfGoTopLeft(chessIndex, rowIndex, columnIndex)
+          )
+      ){
+        this.chestPositions[chessIndex].positionX = rowIndex //TODO cum de facut sa nu se repete bucata aceasta
         this.chestPositions[chessIndex].positionY = columnIndex
+        this.isThisBlack = !this.isThisBlack
+        this.whiteTurn = !this.whiteTurn
+      } else if (
+        this.isThisBlack && !this.whiteTurn &&
+        (
+          this.getIfGoBottomRight(chessIndex, rowIndex, columnIndex) ||
+          this.getIfGoBottomLeft(chessIndex, rowIndex, columnIndex)
+          )
+      ){
+        this.chestPositions[chessIndex].positionX = rowIndex //TODO cum de facut sa nu se repete bucata aceasta
+        this.chestPositions[chessIndex].positionY = columnIndex
+        this.isThisBlack = !this.isThisBlack
+        this.whiteTurn = !this.whiteTurn
       }
     }
   },
@@ -310,7 +325,7 @@ export default {
     <h1>{{ msg }}</h1>
     <div class="desk">
       <div v-for="chess in chestPositions" :key="chess.id">
-        <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id)" class="chest" alt="chess"
+        <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id, chess.isBlack, chess.isQueen)" class="chest" alt="chess"
              style="position: absolute;"
              :style="{ left: (chess.positionX * 80) + 'px', top: (chess.positionY * 80) + 'px' }"
              :src="chess.isBlack ? require('../assets/black.png') : require('../assets/white.png')">
