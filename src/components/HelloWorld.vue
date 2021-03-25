@@ -187,45 +187,10 @@ export default {
     newPositionY: 0,
     count: 0,
     keepChessId: '',
-    // isThisBlack: '',
-    whiteTurn: true
+    whiteTurn: true,
+    isKilled: ''
   }),
   mounted() {
-    //  for (let i = 1; i <= 8; i++) {
-    //     for (let j = 1; j <= 4; j++) {
-    //       this.chestPositions.push({
-    //       id: `white${i}`,
-    //       positionY: 1,
-    //       isBlack: false,
-    //       isQueen: false
-    //   },)
-    //   if(i % 2 === 0) {
-    //     this.chestPositions.push({
-    //       positionX: 1,
-    //       isBlack: true,
-    //       },)
-    //   }
-    //  }
-    //  }
-
-
-    // for(column, columnIndex) in row" :key="columnIndex">
-    //   :class=" column === 1 ? 'white-cell' : 'black-cell'">
-
-    // let posx = 1;
-    // let val = 0;
-    // let initx = 1;
-    // for (let i = 1; i <= 7; i++) {
-    //   if ((i % 2) === 0 ) {
-    //     // val = 1;
-    //     // this.chestPositions.push({
-    //     //   positionX: 1,
-    //     //
-    //     // },)
-    //   } else {
-    //     console.log(i + "-------------")
-    //   }
-    // }
     // for (let white = 1; white <= 12; white++) {
     //   let posy = (white > 8 && white <= 12 ) ? 2 : (white <= 4)? 0 : (white > 4 && white <= 8 )? 1 : '';
     //   this.chestPositions.push({
@@ -252,62 +217,75 @@ export default {
     restartPage() {
       location.reload();
     },
-    // getXPosition() {
-    //   for (let i = 0; i <= this.chestPositions.length; i++){
-    //     console.log(i)
-    //   }
-    // },
     getIfGoTopLeft(chessIndex, rowIndex, columnIndex) {
-      if (((this.chestPositions[chessIndex].positionX - 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY - 1) === columnIndex)) {
-        return true;
-      }
-    },
-    getIfGoTopRight(chessIndex, rowIndex, columnIndex) {
-      const posX = this.chestPositions[chessIndex].positionX;
+      const posX = this.chestPositions[chessIndex].positionX;//TODO cum de facut sa nu se repete bucata aceasta
       const posY = this.chestPositions[chessIndex].positionY;
-      let test = false
+      let willKill = false
       this.chestPositions.forEach(element => {
+      this.isKilled = (((posX - 1) === element.positionX ) && ((posY - 1) === element.positionY))
         if (
-            (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex))
-            // ((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)) && (((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)) )
+            (((posX - 1) === rowIndex) && ((posY - 1) === columnIndex)) ||
+            (this.isKilled &&
+            (((posX - 2) === rowIndex) && ((posY - 2) === columnIndex)))
         ) {
-          console.log(element)
-          // console.log((((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)))
-          // console.log((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)))
-          test = true;
+          willKill = true;
         }
       });
-      return test;
-      // if (
-      //     (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex))
-      //     // ((((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)) && (((posX + 1) === ??? ) && ((posY - 1) === ???)))
-      // ) {
-      //   return true;
-      // }
+      return willKill;
+    },
+    getIfGoTopRight(chessIndex, rowIndex, columnIndex) {
+      const posX = this.chestPositions[chessIndex].positionX;//TODO cum de facut sa nu se repete bucata aceasta
+      const posY = this.chestPositions[chessIndex].positionY;
+      let willKill = false
+      this.chestPositions.forEach(element => {
+        if (
+            (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex)) ||
+            ((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)) &&
+              (((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)))
+        ) {
+          willKill = true;
+        }
+      });
+      return willKill;
     },
     getIfGoBottomLeft(chessIndex, rowIndex, columnIndex) {
-      if (((this.chestPositions[chessIndex].positionX - 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY + 1) === columnIndex)) {
-        return true;
-      }
+      const posX = this.chestPositions[chessIndex].positionX;//TODO cum de facut sa nu se repete bucata aceasta
+      const posY = this.chestPositions[chessIndex].positionY;
+      let willKill = false
+      this.chestPositions.forEach(element => {
+        if (
+            (((posX - 1) === rowIndex) && ((posY + 1) === columnIndex)) ||
+            ((((posX - 1) === element.positionX ) && ((posY + 1) === element.positionY)) &&
+            (((posX - 2) === rowIndex) && ((posY + 2) === columnIndex)))
+        ) {
+          willKill = true;
+        }
+      });
+      return willKill;
     },
     getIfGoBottomRight(chessIndex, rowIndex, columnIndex) {
-      if (((this.chestPositions[chessIndex].positionX + 1) === rowIndex) && ((this.chestPositions[chessIndex].positionY + 1) === columnIndex)) {
-        return true;
-      }
+      const posX = this.chestPositions[chessIndex].positionX;//TODO cum de facut sa nu se repete bucata aceasta
+      const posY = this.chestPositions[chessIndex].positionY;
+      let willKill = false
+      this.chestPositions.forEach(element => {
+        if (
+            (((posX + 1) === rowIndex) && ((posY + 1) === columnIndex)) ||
+            ((((posX + 1) === element.positionX ) && ((posY + 1) === element.positionY)) &&
+            (((posX + 2) === rowIndex) && ((posY + 2) === columnIndex)))
+        ) {
+          willKill = true;
+        }
+      });
+      return willKill;
     },
-
     getChessCoordinate(positionX, positionY, id, isBlack) {
-      console.log(positionX, positionY, id.split('-').slice(0, 1).toString(), id.split('-').slice(1).toString())
-      // console.log(isBlack)
-      // document.addEventListener('click', () => {
-      // }, false);
+      // console.log(positionX, positionY, id.split('-').slice(0, 1).toString(), id.split('-').slice(1).toString())
       this.keepChessId = id;
       this.isThisBlack = isBlack; //culoarea damei
       this.newPositionX = positionX;
       this.newPositionY = positionY;
     },
     getCoordinate(rowIndex, columnIndex) {
-      console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
       if (
           !this.isThisBlack && this.whiteTurn &&
@@ -350,7 +328,7 @@ export default {
         <img @click="getChessCoordinate(chess.positionX, chess.positionY, chess.id, chess.isBlack, chess.isQueen)"
              class="chest" alt="chess"
              style="position: absolute;"
-             :style="{ left: (chess.positionX * 80) + 'px', top: (chess.positionY * 80) + 'px' }"
+             :style="{ left: (chess.positionX * 80) + 'px', top: (chess.positionY * 80) + 'px'}"
              :src="chess.isBlack ? require('../assets/black.png') : require('../assets/white.png')">
       </div>
       <div v-for="(row, rowIndex) in matrix" :key="rowIndex">
