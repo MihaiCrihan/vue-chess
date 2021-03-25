@@ -1,3 +1,4 @@
+
 <script>
 export default {
   name: 'HelloWorld',
@@ -264,6 +265,7 @@ export default {
     getIfGoTopRight(chessIndex, rowIndex, columnIndex) {
       const posX = this.chestPositions[chessIndex].positionX;
       const posY = this.chestPositions[chessIndex].positionY;
+      let test = false
       this.chestPositions.forEach(element => {
         if (
             (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex))
@@ -272,9 +274,10 @@ export default {
           console.log(element)
           // console.log((((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)))
           // console.log((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)))
-          return true;
+          test = true;
         }
       });
+      return test;
       // if (
       //     (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex))
       //     // ((((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)) && (((posX + 1) === ??? ) && ((posY - 1) === ???)))
