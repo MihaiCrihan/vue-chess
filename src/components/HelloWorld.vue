@@ -238,12 +238,16 @@ export default {
       const posY = this.chestPositions[chessIndex].positionY;
       let willKill = false
       this.chestPositions.forEach(element => {
-        if (
-            (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex)) ||
-            ((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)) &&
-              (((posX + 2) === rowIndex) && ((posY - 2) === columnIndex)))
-        ) {
+        if (((posX + 1) === rowIndex) && ((posY - 1) === columnIndex)) {
           willKill = true;
+        }
+        if ((((posX + 1) === element.positionX ) && ((posY - 1) === element.positionY)) &&
+            (((posX + 2) === rowIndex) && ((posY - 2) === columnIndex))) {
+          console.log("intra-------------------")
+          console.log(posX + 1, posY - 1, "aaaaaaaaaaaaaaa", chessIndex)
+          willKill = true;
+          console.log(this.chestPositions.findIndex(chessIndex => chessIndex.positionX === posX + 1 && chessIndex.positionY === posY - 1 ), posX + 1, posY - 1)
+          // this.chestPositions.splice(this.chestPositions.findIndex(chessIndex => chessIndex.positionX === posX + 1 && chessIndex.positionY === posY - 1 ), 1)
         }
       });
       return willKill;
@@ -268,11 +272,8 @@ export default {
       const posY = this.chestPositions[chessIndex].positionY;
       let willKill = false
       this.chestPositions.forEach(element => {
-        if (
-            (((posX + 1) === rowIndex) && ((posY + 1) === columnIndex)) ||
-            ((((posX + 1) === element.positionX ) && ((posY + 1) === element.positionY)) &&
-            (((posX + 2) === rowIndex) && ((posY + 2) === columnIndex)))
-        ) {
+        if (((((posX + 1) === rowIndex) && ((posY + 1) === columnIndex))) || ((((posX + 1) === element.positionX ) && ((posY + 1) === element.positionY)) &&
+            (((posX + 2) === rowIndex) && ((posY + 2) === columnIndex)))) {
           willKill = true;
         }
       });
@@ -286,6 +287,7 @@ export default {
       this.newPositionY = positionY;
     },
     getCoordinate(rowIndex, columnIndex) {
+      console.log(rowIndex, columnIndex)
       const chessIndex = this.chestPositions.findIndex(item => item.id === this.keepChessId)
       if (
           !this.isThisBlack && this.whiteTurn &&
